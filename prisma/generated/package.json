@@ -60,12 +60,6 @@
       "import": "./wasm.js",
       "default": "./wasm.js"
     },
-    "./runtime/client": {
-      "types": "./runtime/client.d.ts",
-      "require": "./runtime/client.js",
-      "import": "./runtime/client.js",
-      "default": "./runtime/client.js"
-    },
     "./runtime/library": {
       "types": "./runtime/library.d.ts",
       "require": "./runtime/library.js",
@@ -98,6 +92,6 @@
     },
     "./*": "./*"
   },
-  "version": "6.4.1",
+  "version": "5.22.0",
   "sideEffects": false
 }

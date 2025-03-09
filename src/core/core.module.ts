@@ -1,10 +1,13 @@
 import { ApolloDriver } from '@nestjs/apollo';
 import { PrismaModule } from './prisma/prisma.module';
-import { IS_DEV_ENV } from '@/shared/utils/is-dev-util';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { getGraphqlConfig } from './config/graphqlConfig';
+import { RedisModule } from './redis/redis.module';
+import { IS_DEV_ENV } from '../shared/utils/is-dev-util';
+import { AccountModule } from '../modules/auth/account/account.module';
+import { SessionModule } from '../modules/auth/session/session.module';
 
 
 @Module({
@@ -19,7 +22,10 @@ import { getGraphqlConfig } from './config/graphqlConfig';
     useFactory: getGraphqlConfig,
 	 inject: [ConfigService],
   }),
-  PrismaModule
+  PrismaModule,
+  RedisModule,
+  AccountModule,
+  SessionModule
 ],
 })
 export class CoreModule {}
