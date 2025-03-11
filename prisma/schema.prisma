@@ -1,27 +1,56 @@
 generator client {
-  provider = "prisma-client-js"
-  output = "./generated"
+   provider = "prisma-client-js"
+   output   = "./generated"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URI")
+   provider = "postgresql"
+   url      = env("POSTGRES_URI")
 }
 
 model User {
-  id String @id @default(uuid())
+   id String @id @default(uuid())
 
-  email String @unique
-  password String
+   email    String @unique
+   password String
 
-  username String @unique
-  displayName String @map("display_name")
+   username    String @unique
+   displayName String @map("display_name")
 
-  avatar String?
-  bio String?
+   avatar String?
+   bio    String?
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+   isVerified Boolean @default(false) @map("is_verified")
 
-  @@map("users")
+   isEmailVerified Boolean @default(false) @map("is_email_verified")
+
+   tokens Token[]
+
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
+   @@map("users")
+}
+
+model Token {
+   id String @id @default(uuid())
+
+   token     String    @unique
+   type      TokenType
+   expiresIn DateTime  @map("expires_in")
+
+   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId String? @map("user_id")
+
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
+   @@map("tokens")
+}
+
+enum TokenType {
+   EMAIL_VERIFY
+   PASSWORD_RESET
+
+   @@map("token_types")
 }

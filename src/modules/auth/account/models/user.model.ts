@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
-// import type { User } from '@/prisma/generated'
+import type { User } from '@/prisma/generated'
+
 // import { FollowModel } from '@/src/modules/follow/models/follow.model'
 // import { NotificationSettingsModel } from '@/src/modules/notification/models/notification-settings.model'
 // import { NotificationModel } from '@/src/modules/notification/models/notification.model'
@@ -11,7 +12,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql'
 // import { SocialLinkModel } from '../../profile/models/social-link.model'
 
 @ObjectType()
-export class UserModel {
+export class UserModel implements User {
 	@Field(() => ID)
 	public id: string
 
@@ -36,11 +37,11 @@ export class UserModel {
 	// @Field(() => String, { nullable: true })
 	// public telegramId: string
 
-	// @Field(() => Boolean)
-	// public isVerified: boolean
+	@Field(() => Boolean)
+	public isVerified: boolean
 
-	// @Field(() => Boolean)
-	// public isEmailVerified: boolean
+	@Field(() => Boolean)
+	public isEmailVerified: boolean
 
 	// @Field(() => Boolean)
 	// public isTotpEnabled: boolean
