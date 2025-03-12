@@ -13,6 +13,7 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev-util'
 import { getGraphqlConfig } from './config/graphqlConfig'
 import { PrismaModule } from './prisma/prisma.module'
 import { RedisModule } from './redis/redis.module'
+import { TotpModule } from '../modules/auth/totp/totp.module'
 
 @Module({
 	imports: [
@@ -32,7 +33,8 @@ import { RedisModule } from './redis/redis.module'
 		AccountModule,
 		SessionModule,
 		VerificationModule,
-		PasswordRecoveryModule
+		PasswordRecoveryModule, 
+		TotpModule
 	]
 })
 export class CoreModule {}

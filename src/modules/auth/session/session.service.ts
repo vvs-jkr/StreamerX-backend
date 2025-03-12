@@ -110,27 +110,27 @@ export class SessionService {
 			)
 		}
 
-		// if (user.isTotpEnabled) {
-		// 	if (!pin) {
-		// 		return {
-		// 			message: 'Необходим код для завершения авторизации'
-		// 		}
-		// 	}
+		if (user.isTotpEnabled) {
+			if (!pin) {
+				return {
+					message: 'Необходим код для завершения авторизации'
+				}
+			}
 
-		// 	const totp = new TOTP({
-		// 		issuer: 'TeaStream',
-		// 		label: `${user.email}`,
-		// 		algorithm: 'SHA1',
-		// 		digits: 6,
-		// 		secret: user.totpSecret
-		// 	})
+			const totp = new TOTP({ 
+				issuer: 'TeaStream',
+				label: `${user.email}`,
+				algorithm: 'SHA1',
+				digits: 6,
+				secret: user.totpSecret
+			})
 
-		// 	const delta = totp.validate({ token: pin })
+			const delta = totp.validate({ token: pin })
 
-		// 	if (delta === null) {
-		// 		throw new BadRequestException('Неверный код')
-		// 	}
-		// }
+			if (delta === null) {
+				throw new BadRequestException('Неверный код')
+			}
+		}
 
 		const metadata = getSessionMetadata(req, userAgent)
 
