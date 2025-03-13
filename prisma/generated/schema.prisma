@@ -33,8 +33,8 @@ model User {
 
   // deactivatedAt DateTime? @map("deactivated_at")
 
-  // tokens               Token[]
-  // socialLinks          SocialLink[]
+  tokens      Token[]
+  socialLinks SocialLink[]
   // stream               Stream?
   // chatMessages         ChatMessage[]
   // notifications        Notification[]
@@ -50,9 +50,24 @@ model User {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  Token     Token[]
 
   @@map("users")
+}
+
+model SocialLink {
+  id String @id @default(uuid())
+
+  title    String
+  url      String
+  position Int
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String? @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("social_links")
 }
 
 model Token {

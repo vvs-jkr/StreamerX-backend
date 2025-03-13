@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 import type { User } from '@/prisma/generated'
+import { SocialLinkModel } from '../../profile/models/social-link.model'
 
 // import { FollowModel } from '@/src/modules/follow/models/follow.model'
 // import { NotificationSettingsModel } from '@/src/modules/notification/models/notification-settings.model'
@@ -55,8 +56,8 @@ export class UserModel implements User {
 	@Field(() => Date, { nullable: true })
 	public deactivatedAt: Date
 
-	// @Field(() => [SocialLinkModel])
-	// public socialLinks: SocialLinkModel[]
+	@Field(() => [SocialLinkModel])
+	public socialLinks: SocialLinkModel[]
 
 	// @Field(() => StreamModel)
 	// public stream: StreamModel

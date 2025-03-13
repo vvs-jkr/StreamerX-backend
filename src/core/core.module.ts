@@ -11,8 +11,10 @@ import { TotpModule } from '../modules/auth/totp/totp.module'
 import { VerificationModule } from '../modules/auth/verification/verification.module'
 import { CronModule } from '../modules/cron/cron.module'
 import { MailModule } from '../modules/libs/mail/mail.module'
+import { StorageModule } from '../modules/libs/storage/storage.module'
 import { IS_DEV_ENV } from '../shared/utils/is-dev-util'
 
+import { ProfileModule } from './../modules/auth/profile/profile.module'
 import { getGraphqlConfig } from './config/graphqlConfig'
 import { PrismaModule } from './prisma/prisma.module'
 import { RedisModule } from './redis/redis.module'
@@ -32,9 +34,11 @@ import { RedisModule } from './redis/redis.module'
 		PrismaModule,
 		RedisModule,
 		MailModule,
+		StorageModule,
 		CronModule,
 		AccountModule,
 		SessionModule,
+		ProfileModule,
 		VerificationModule,
 		PasswordRecoveryModule,
 		TotpModule,
