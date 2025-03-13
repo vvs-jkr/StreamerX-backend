@@ -29,7 +29,7 @@ export function AccountDeletionTemplate({ domain }:AccountDeletionTemplateProps)
 							Ваш аккаунт был полностью удалён
 						</Heading>
 						<Text className="text-base text-black mt-2">
-							Ваш аккаунт был полностью стерт из базы данных TeaStream. Все ваши данные и информация были удалены безвозвратно.
+							Ваш аккаунт был полностью стерт из базы данных StreamerX. Все ваши данные и информация были удалены безвозвратно.
 						</Text>
 					</Section>
 
@@ -44,7 +44,7 @@ export function AccountDeletionTemplate({ domain }:AccountDeletionTemplateProps)
 							href={registerLink}
 							className="inline-flex justify-center items-center rounded-md mt-2 text-sm font-medium text-white bg-[#18B9AE] px-5 py-2 rounded-full"
 						>
-							Зарегистрироваться на Teastream
+							Зарегистрироваться на StreamerX
 						</Link>
 					</Section>
 

@@ -9,6 +9,7 @@ import { PasswordRecoveryModule } from '../modules/auth/password-recovery/passwo
 import { SessionModule } from '../modules/auth/session/session.module'
 import { TotpModule } from '../modules/auth/totp/totp.module'
 import { VerificationModule } from '../modules/auth/verification/verification.module'
+import { CronModule } from '../modules/cron/cron.module'
 import { MailModule } from '../modules/libs/mail/mail.module'
 import { IS_DEV_ENV } from '../shared/utils/is-dev-util'
 
@@ -31,6 +32,7 @@ import { RedisModule } from './redis/redis.module'
 		PrismaModule,
 		RedisModule,
 		MailModule,
+		CronModule,
 		AccountModule,
 		SessionModule,
 		VerificationModule,
