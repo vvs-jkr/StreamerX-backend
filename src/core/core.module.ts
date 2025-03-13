@@ -4,8 +4,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { AccountModule } from '../modules/auth/account/account.module'
+import { DeactivateModule } from '../modules/auth/deactivate/deactivate.module'
 import { PasswordRecoveryModule } from '../modules/auth/password-recovery/password-recovery.module'
 import { SessionModule } from '../modules/auth/session/session.module'
+import { TotpModule } from '../modules/auth/totp/totp.module'
 import { VerificationModule } from '../modules/auth/verification/verification.module'
 import { MailModule } from '../modules/libs/mail/mail.module'
 import { IS_DEV_ENV } from '../shared/utils/is-dev-util'
@@ -13,7 +15,6 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev-util'
 import { getGraphqlConfig } from './config/graphqlConfig'
 import { PrismaModule } from './prisma/prisma.module'
 import { RedisModule } from './redis/redis.module'
-import { TotpModule } from '../modules/auth/totp/totp.module'
 
 @Module({
 	imports: [
@@ -33,8 +34,9 @@ import { TotpModule } from '../modules/auth/totp/totp.module'
 		AccountModule,
 		SessionModule,
 		VerificationModule,
-		PasswordRecoveryModule, 
-		TotpModule
+		PasswordRecoveryModule,
+		TotpModule,
+		DeactivateModule
 	]
 })
 export class CoreModule {}

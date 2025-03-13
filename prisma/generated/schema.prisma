@@ -20,16 +20,37 @@ model User {
   avatar String?
   bio    String?
 
+  // telegramId String? @unique @map("telegram_id")
+
   isVerified Boolean @default(false) @map("is_verified")
 
   isEmailVerified Boolean @default(false) @map("is_email_verified")
   isTotpEnabled   Boolean @default(false) @map("is_totp_enabled")
   totpSecret      String? @map("totp_secret")
 
-  tokens Token[]
+  isDeactivated Boolean   @default(false) @map("is_deleted")
+  deactivatedAt DateTime? @map("deactivated_at")
+
+  // deactivatedAt DateTime? @map("deactivated_at")
+
+  // tokens               Token[]
+  // socialLinks          SocialLink[]
+  // stream               Stream?
+  // chatMessages         ChatMessage[]
+  // notifications        Notification[]
+  // notificationSettings NotificationSettings?
+
+  // followers  Follow[] @relation(name: "followers")
+  // followings Follow[] @relation(name: "followings")
+
+  // transactions             Transaction[]
+  // sponsorshipPlans         SponsorshipPlan[]
+  // sponsorshipSubscriptions SponsorshipSubscription[] @relation(name: "sponsorship_subscriptions")
+  // sponsors                 SponsorshipSubscription[] @relation(name: "sponsors")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  Token     Token[]
 
   @@map("users")
 }
@@ -53,6 +74,7 @@ model Token {
 enum TokenType {
   EMAIL_VERIFY
   PASSWORD_RESET
+  DEACTIVATE_ACCOUNT
 
   @@map("token_types")
 }

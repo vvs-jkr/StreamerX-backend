@@ -10,7 +10,7 @@ interface DeactivateTemplateProps {
 
 export function DeactivateTemplate({ token, metadata }: DeactivateTemplateProps) {
 	return (
-		<Html>
+	<Html>
 			<Head />
 			<Preview>Деактивация аккаунта</Preview>
 			<Tailwind>
@@ -20,11 +20,11 @@ export function DeactivateTemplate({ token, metadata }: DeactivateTemplateProps)
 							Запрос на деактивацию аккаунта
 						</Heading>
 						<Text className="text-black text-base mt-2">
-							Вы инициировали процесс деактивации вашего аккаунта на платформе <b>TeaStream</b>.
+							Вы инициировали процесс деактивации вашего аккаунта на платформе <b>StreamerX</b>.
 						</Text>
 					</Section>
 
-					<Section className='bg-gray-100 rounded-lg p-6 text-center mb-6'>
+					<Section className='bg-gray-100 rounded-lg md p-6 text-center mb-6'>
 						<Heading className='text-2xl text-black font-semibold'>
 							Код подтверждения:
 						</Heading>
@@ -57,10 +57,10 @@ export function DeactivateTemplate({ token, metadata }: DeactivateTemplateProps)
 						<Text className='text-gray-600'>
 							Если у вас есть вопросы или вы столкнулись с трудностями, не стесняйтесь обращаться в нашу службу поддержки по адресу{' '}
 							<Link 
-								href="mailto:help@teastream.ru" 
+								href="mailto:vshelp@vsdev.ru" 
 								className="text-[#18b9ae] underline"
 							>
-								help@teastream.ru
+								vshelp@vsdev.ru
 							</Link>.
 						</Text>
 					</Section>
