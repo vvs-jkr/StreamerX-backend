@@ -9,13 +9,13 @@ import {
 import type { User } from '@/prisma/generated'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
-// import { LivekitService } from '../../libs/livekit/livekit.service'
+import { LivekitService } from '../../libs/livekit/livekit.service'
 
 @Injectable()
 export class IngressService {
 	public constructor(
-		private readonly prismaService: PrismaService
-		// private readonly livekitService: LivekitService
+		private readonly prismaService: PrismaService,
+		private readonly livekitService: LivekitService
 	) {}
 
 	public async create(user: User, ingressType: IngressInput) {
@@ -41,46 +41,46 @@ export class IngressService {
 			}
 		}
 
-		// const ingress = await this.livekitService.ingress.createIngress(
-		// 	ingressType,
-		// 	options
-		// )
+		const ingress = await this.livekitService.ingress.createIngress(
+			ingressType,
+			options
+		)
 
-		// if (!ingress || !ingress.url || !ingress.streamKey) {
-		// 	throw new BadRequestException('Не удалось создать входной поток')
-		// }
+		if (!ingress || !ingress.url || !ingress.streamKey) {
+			throw new BadRequestException('Не удалось создать входной поток')
+		}
 
-		// await this.prismaService.stream.update({
-		// 	where: {
-		// 		userId: user.id
-		// 	},
-		// 	data: {
-		// 		ingressId: ingress.ingressId,
-		// 		serverUrl: ingress.url,
-		// 		streamKey: ingress.streamKey
-		// 	}
-		// })
+		await this.prismaService.stream.update({
+			where: {
+				userId: user.id
+			},
+			data: {
+				ingressId: ingress.ingressId,
+				serverUrl: ingress.url,
+				streamKey: ingress.streamKey
+			}
+		})
 
 		return true
 	}
 
-	// private async resetIngresses(user: User) {
-	// 	const ingresses = await this.livekitService.ingress.listIngress({
-	// 		roomName: user.id
-	// 	})
+	private async resetIngresses(user: User) {
+		const ingresses = await this.livekitService.ingress.listIngress({
+			roomName: user.id
+		})
 
-	// 	const rooms = await this.livekitService.room.listRooms([user.id])
+		const rooms = await this.livekitService.room.listRooms([user.id])
 
-	// 	for (const room of rooms) {
-	// 		await this.livekitService.room.deleteRoom(room.name)
-	// 	}
+		for (const room of rooms) {
+			await this.livekitService.room.deleteRoom(room.name)
+		}
 
-	// 	for (const ingress of ingresses) {
-	// 		if (ingress.ingressId) {
-	// 			await this.livekitService.ingress.deleteIngress(
-	// 				ingress.ingressId
-	// 			)
-	// 		}
-	// 	}
-	// }
+		for (const ingress of ingresses) {
+			if (ingress.ingressId) {
+				await this.livekitService.ingress.deleteIngress(
+					ingress.ingressId
+				)
+			}
+		}
+	}
 }

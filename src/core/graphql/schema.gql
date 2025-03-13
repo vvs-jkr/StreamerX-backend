@@ -22,6 +22,11 @@ input ChangeProfileInfoInput {
   username: String!
 }
 
+input ChangeStreamInfoInput {
+  categoryId: String!
+  title: String!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
@@ -74,6 +79,8 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): Boolean!
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeProfileInfoInput!): Boolean!
+  changeStreamInfo(data: ChangeStreamInfoInput!): Boolean!
+  changeStreamThumbnail(thumbnail: Upload!): Boolean!
   clearSessionCookie: Boolean!
   createIngress(ingressType: Float!): Boolean!
   createSocialLink(data: SocialLinkInput!): Boolean!
@@ -87,6 +94,7 @@ type Mutation {
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
   removeSocialLink(id: String!): Boolean!
+  removeStreamThumbnail: Boolean!
   reorderSocialLinks(list: [SocialLinkOrderInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
   updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
@@ -103,6 +111,7 @@ type Query {
   findAllStreams(filters: FiltersInput!): [StreamModel!]!
   findCurrentSession: SessionModel!
   findProfile: UserModel!
+  findRandomStreams: [StreamModel!]!
   findSessionsByUser: [SessionModel!]!
   findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
