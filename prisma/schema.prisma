@@ -35,7 +35,7 @@ model User {
 
    tokens      Token[]
    socialLinks SocialLink[]
-   // stream               Stream?
+   stream      Stream?
    // chatMessages         ChatMessage[]
    // notifications        Notification[]
    // notificationSettings NotificationSettings?
@@ -48,8 +48,9 @@ model User {
    // sponsorshipSubscriptions SponsorshipSubscription[] @relation(name: "sponsorship_subscriptions")
    // sponsors                 SponsorshipSubscription[] @relation(name: "sponsors")
 
-   createdAt  DateTime     @default(now()) @map("created_at")
-   updatedAt  DateTime     @updatedAt @map("updated_at")
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
    @@map("users")
 }
 
@@ -67,6 +68,36 @@ model SocialLink {
    updatedAt DateTime @updatedAt @map("updated_at")
 
    @@map("social_links")
+}
+
+model Stream {
+   id String @id @default(uuid())
+
+   title        String
+   thumbnailUrl String? @map("thumbnail_url")
+
+   ingressId String? @unique @map("ingress_id")
+   serverUrl String? @map("server_url")
+   streamKey String? @map("stream_key")
+
+   isLive Boolean @default(false) @map("is_live")
+
+   isChatEnabled              Boolean @default(true) @map("is_chat_enabled")
+   isChatFollowersOnly        Boolean @default(false) @map("is_chat_followers_only")
+   isChatPremiumFollowersOnly Boolean @default(false) @map("is_chat_premium_followers_only")
+
+   // chatMessages ChatMessage[]
+
+   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+   userId String? @unique @map("user_id")
+
+   // category   Category? @relation(fields: [categoryId], references: [id])
+   // categoryId String?   @map("category_id")
+
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
+   @@map("streams")
 }
 
 model Token {
