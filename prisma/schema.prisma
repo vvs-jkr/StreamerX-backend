@@ -41,8 +41,8 @@ model User {
    // notifications        Notification[]
    // notificationSettings NotificationSettings?
 
-   // followers  Follow[] @relation(name: "followers")
-   // followings Follow[] @relation(name: "followings")
+   followers  Follow[] @relation(name: "followers")
+   followings Follow[] @relation(name: "followings")
 
    // transactions             Transaction[]
    // sponsorshipPlans         SponsorshipPlan[]
@@ -95,8 +95,8 @@ model Stream {
    category   Category? @relation(fields: [categoryId], references: [id])
    categoryId String?   @map("category_id")
 
-   createdAt   DateTime      @default(now()) @map("created_at")
-   updatedAt   DateTime      @updatedAt @map("updated_at")
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
 
    @@map("streams")
 }
@@ -132,6 +132,24 @@ model Category {
    updatedAt DateTime @updatedAt @map("updated_at")
 
    @@map("categories")
+}
+
+model Follow {
+   id String @id @default(uuid())
+
+   follower   User   @relation(name: "followers", fields: [followerId], references: [id], onDelete: Cascade)
+   followerId String @map("follower_id")
+
+   following   User   @relation(name: "followings", fields: [followingId], references: [id], onDelete: Cascade)
+   followingId String @map("following_id")
+
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
+   @@unique([followerId, followingId])
+   @@index([followerId])
+   @@index([followingId])
+   @@map("follows")
 }
 
 model Token {
