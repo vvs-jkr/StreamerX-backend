@@ -53,8 +53,8 @@ export class StreamResolver {
 		return this.streamService.removeThumbnail(user)
 	}
 
-	// @Mutation(() => GenerateStreamTokenModel, { name: 'generateStreamToken' })
-	// public async generateToken(@Args('data') input: GenerateStreamTokenInput) {
-	// 	return this.streamService.generateToken(input)
-	// }
+	@Mutation(() => GenerateStreamTokenModel, { name: 'generateStreamToken' })
+	public async generateToken(@Args('data') input: GenerateStreamTokenInput) {
+		return this.streamService.generateToken(input)
+	}
 }

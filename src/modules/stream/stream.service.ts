@@ -38,8 +38,8 @@ export class StreamService {
 				...whereClause
 			},
 			include: {
-				user: true
-				// category: true
+				user: true,
+				category: true
 			},
 			orderBy: {
 				createdAt: 'desc'
@@ -73,8 +73,8 @@ export class StreamService {
 				}
 			},
 			include: {
-				user: true
-				// category: true
+				user: true,
+				category: true
 			},
 			take: total,
 			skip: 0
@@ -91,12 +91,12 @@ export class StreamService {
 				userId: user.id
 			},
 			data: {
-				title
-				// category: {
-				// 	connect: {
-				// 		id: categoryId
-				// 	}
-				// }
+				title,
+				category: {
+					connect: {
+						id: categoryId
+					}
+				}
 			}
 		})
 
@@ -177,55 +177,55 @@ export class StreamService {
 		return true
 	}
 
-	// public async generateToken(input: GenerateStreamTokenInput) {
-	// 	const { userId, channelId } = input
+	public async generateToken(input: GenerateStreamTokenInput) {
+		const { userId, channelId } = input
 
-	// 	let self: { id: string; username: string }
+		let self: { id: string; username: string }
 
-	// 	const user = await this.prismaService.user.findUnique({
-	// 		where: {
-	// 			id: userId
-	// 		}
-	// 	})
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				id: userId
+			}
+		})
 
-	// 	if (user) {
-	// 		self = { id: user.id, username: user.username }
-	// 	} else {
-	// 		self = {
-	// 			id: userId,
-	// 			username: `Зритель ${Math.floor(Math.random() * 100000)}`
-	// 		}
-	// 	}
+		if (user) {
+			self = { id: user.id, username: user.username }
+		} else {
+			self = {
+				id: userId,
+				username: `Зритель ${Math.floor(Math.random() * 100000)}`
+			}
+		}
 
-	// 	const channel = await this.prismaService.user.findUnique({
-	// 		where: {
-	// 			id: channelId
-	// 		}
-	// 	})
+		const channel = await this.prismaService.user.findUnique({
+			where: {
+				id: channelId
+			}
+		})
 
-	// 	if (!channel) {
-	// 		throw new NotFoundException('Канал не найден')
-	// 	}
+		if (!channel) {
+			throw new NotFoundException('Канал не найден')
+		}
 
-	// 	const isHost = self.id === channel.id
+		const isHost = self.id === channel.id
 
-	// 	const token = new AccessToken(
-	// 		this.configService.getOrThrow<string>('LIVEKIT_API_KEY'),
-	// 		this.configService.getOrThrow<string>('LIVEKIT_API_SECRET'),
-	// 		{
-	// 			identity: isHost ? `Host-${self.id}` : self.id.toString(),
-	// 			name: self.username
-	// 		}
-	// 	)
+		const token = new AccessToken(
+			this.configService.getOrThrow<string>('LIVEKIT_API_KEY'),
+			this.configService.getOrThrow<string>('LIVEKIT_API_SECRET'),
+			{
+				identity: isHost ? `Host-${self.id}` : self.id.toString(),
+				name: self.username
+			}
+		)
 
-	// 	token.addGrant({
-	// 		room: channel.id,
-	// 		roomJoin: true,
-	// 		canPublish: false
-	// 	})
+		token.addGrant({
+			room: channel.id,
+			roomJoin: true,
+			canPublish: false
+		})
 
-	// 	return { token: token.toJwt() }
-	// }
+		return { token: token.toJwt() }
+	}
 
 	private async findByUserId(user: User) {
 		const stream = await this.prismaService.stream.findUnique({
@@ -255,15 +255,15 @@ export class StreamService {
 							mode: 'insensitive'
 						}
 					}
+				},
+				{
+					category: {
+						title: {
+							contains: searchTerm,
+							mode: 'insensitive'
+						}
+					}
 				}
-				// {
-				// 	category: {
-				// 		title: {
-				// 			contains: searchTerm,
-				// 			mode: 'insensitive'
-				// 		}
-				// 	}
-				// }
 			]
 		}
 	}
