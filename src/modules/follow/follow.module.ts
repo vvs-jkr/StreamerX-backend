@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 
 // import { TelegramService } from '../libs/telegram/telegram.service'
-// import { NotificationService } from '../notification/notification.service'
+import { NotificationService } from '../notification/notification.service'
 
 import { FollowResolver } from './follow.resolver'
 import { FollowService } from './follow.service'
@@ -10,7 +10,7 @@ import { FollowService } from './follow.service'
 	providers: [
 		FollowResolver,
 		FollowService,
-		// NotificationService,
+		NotificationService,
 		// TelegramService
 	]
 })

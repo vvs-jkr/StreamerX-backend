@@ -32,10 +32,10 @@ export function VerificationTemplate({ domain, token }: VerificationTemplateProp
 						<Text className='text-gray-600'>
 							Если у вас есть вопросы или вы столкнулись с трудностями, не стесняйтесь обращаться в нашу службу поддержки по адресу{' '}
 							<Link 
-								href="mailto:vs-help@vsdev.ru" 
+								href="mailto:vs-help@vs-dev-streamerx.ru" 
 								className="text-[#18b9ae] underline"
 							>
-								vs-dev@vsdev.ru
+								vs-dev@vs-dev-streamerx.ru
 							</Link>.
 						</Text>
 					</Section>

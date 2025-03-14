@@ -57,10 +57,10 @@ export function DeactivateTemplate({ token, metadata }: DeactivateTemplateProps)
 						<Text className='text-gray-600'>
 							Если у вас есть вопросы или вы столкнулись с трудностями, не стесняйтесь обращаться в нашу службу поддержки по адресу{' '}
 							<Link 
-								href="mailto:vshelp@vsdev.ru" 
+								href="mailto:vshelp@vs-dev-streamerx.ru" 
 								className="text-[#18b9ae] underline"
 							>
-								vshelp@vsdev.ru
+								vshelp@vs-dev-streamerx.ru
 							</Link>.
 						</Text>
 					</Section>

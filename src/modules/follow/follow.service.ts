@@ -7,15 +7,15 @@ import {
 import { User } from '@/prisma/generated'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
-// import { TelegramService } from '../libs/telegram/telegram.service'
-// import { NotificationService } from '../notification/notification.service'
+import { TelegramService } from '../libs/telegram/telegram.service'
+import { NotificationService } from '../notification/notification.service'
 
 @Injectable()
 export class FollowService {
 	public constructor(
 		private readonly prismaService: PrismaService,
-		// private readonly notificationService: NotificationService,
-		// private readonly telegramService: TelegramService
+		private readonly notificationService: NotificationService,
+		private readonly telegramService: TelegramService
 	) {}
 
 	public async findMyFollowers(user: User) {
@@ -84,29 +84,29 @@ export class FollowService {
 			include: {
 				follower: true,
 				following: {
-					// include: {
-					// 	notificationSettings: true
-					// }
+					include: {
+						notificationSettings: true
+					}
 				}
 			}
 		})
 
-		// if (follow.following.notificationSettings.siteNotifications) {
-		// 	await this.notificationService.createNewFollowing(
-		// 		follow.following.id,
-		// 		follow.follower
-		// 	)
-		// }
+		if (follow.following.notificationSettings.siteNotifications) {
+			await this.notificationService.createNewFollowing(
+				follow.following.id,
+				follow.follower
+			)
+		}
 
-		// if (
-		// 	follow.following.notificationSettings.telegramNotifications &&
-		// 	follow.following.telegramId
-		// ) {
-		// 	await this.telegramService.sendNewFollowing(
-		// 		follow.following.telegramId,
-		// 		follow.follower
-		// 	)
-		// }
+		if (
+			follow.following.notificationSettings.telegramNotifications &&
+			follow.following.telegramId
+		) {
+			await this.telegramService.sendNewFollowing(
+				follow.following.telegramId,
+				follow.follower
+			)
+		}
 
 		return true
 	}
