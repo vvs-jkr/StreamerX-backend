@@ -42,9 +42,9 @@ export class ChannelService {
 						category: true
 					}
 				},
-				followings: true
-				// sponsorshipPlans: true,
-				// sponsorshipSubscriptions: true
+				followings: true,
+				sponsorshipPlans: true,
+				sponsorshipSubscriptions: true
 			}
 		})
 
@@ -78,22 +78,21 @@ export class ChannelService {
 			throw new NotFoundException('Канал не найден')
 		}
 
-		// 	const sponsors =
-		// 		await this.prismaService.sponsorshipSubscription.findMany({
-		// 			where: {
-		// 				channelId: channel.id
-		// 			},
-		// 			orderBy: {
-		// 				createdAt: 'desc'
-		// 			},
-		// 			include: {
-		// 				plan: true,
-		// 				user: true,
-		// 				channel: true
-		// 			}
-		// 		})
+		const sponsors =
+			await this.prismaService.sponsorshipSubscription.findMany({
+				where: {
+					channelId: channel.id
+				},
+				orderBy: {
+					createdAt: 'desc'
+				},
+				include: {
+					plan: true,
+					user: true,
+					channel: true
+				}
+			})
 
-		// 	return sponsors
-		// }
+		return sponsors
 	}
 }

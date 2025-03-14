@@ -27,8 +27,8 @@ export class AccountService {
 			},
 			include: {
 				socialLinks: true,
-				stream: true
-				// notificationSettings: true
+				stream: true,
+				notificationSettings: true
 			}
 		})
 
@@ -68,10 +68,10 @@ export class AccountService {
 					create: {
 						title: `Стрим ${username}`
 					}
+				},
+				notificationSettings: {
+					create: {}
 				}
-				// notificationSettings: {
-				// 	create: {}
-				// }
 			}
 		})
 
