@@ -52,10 +52,10 @@ export function EnableTwoFactorTemplate({ domain }: EnableTwoFactorTemplateProps
 						<Text className="text-gray-600">
 							Если у вас возникли вопросы, обращайтесь в службу поддержки по адресу{' '}
 							<Link
-								href="mailto:help@teastream.ru"
+								href="mailto:help@vs-dev-streamerx.ru"
 								className="text-[#18b9ae] underline"
 							>
-								help@teastream.ru
+								help@vs-dev-streamerx.ru
 							</Link>.
 						</Text>
 					</Section>
