@@ -35,29 +35,36 @@ export class ProfileService {
 
 		const fileName = `/channels/${user.username}.webp`
 
+		let processedBuffer: Buffer
 		if (file.filename && file.filename.endsWith('.gif')) {
 			const processedBuffer = await sharp(buffer, { animated: true })
 				.resize(512, 512)
 				.webp()
 				.toBuffer()
 
-			await this.storageService.upload(
-				processedBuffer,
-				fileName,
-				'image/webp'
-			)
+			// await this.storageService.upload(
+			// 	processedBuffer,
+			// 	fileName,
+			// 	'image/webp'
+			// )
 		} else {
-			const processedBuffer = await sharp(buffer)
+			processedBuffer = await sharp(buffer)
 				.resize(512, 512)
 				.webp()
 				.toBuffer()
 
-			await this.storageService.upload(
-				processedBuffer,
-				fileName,
-				'image/webp'
-			)
+			// await this.storageService.upload(
+			// 	processedBuffer,
+			// 	fileName,
+			// 	'image/webp'
+			// )
 		}
+
+		const signedUrl = await this.storageService.upload(
+			processedBuffer,
+			fileName,
+			'image/webp'
+		)
 
 		await this.prismaService.user.update({
 			where: {
@@ -68,7 +75,7 @@ export class ProfileService {
 			}
 		})
 
-		return true
+		return signedUrl
 	}
 
 	public async removeAvatar(user: User) {
@@ -117,18 +124,18 @@ export class ProfileService {
 		return true
 	}
 
-		public async findSocialLinks(user: User) {
-			const socialLinks = await this.prismaService.socialLink.findMany({
-				where: {
-					userId: user.id
-				},
-				orderBy: {
-					position: 'asc'
-				}
-			})
+	public async findSocialLinks(user: User) {
+		const socialLinks = await this.prismaService.socialLink.findMany({
+			where: {
+				userId: user.id
+			},
+			orderBy: {
+				position: 'asc'
+			}
+		})
 
-			return socialLinks
-		}
+		return socialLinks
+	}
 
 	public async createSocialLink(user: User, input: SocialLinkInput) {
 		const { title, url } = input

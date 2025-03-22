@@ -8,6 +8,7 @@ import { hash, verify } from 'argon2'
 import { User } from '@/prisma/generated'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
+import { StorageService } from './../../libs/storage/storage.service'
 import { VerificationService } from './../verification/verification.service'
 import { ChangeEmailInput } from './inputs/change-email.input'
 import { ChangePasswordInput } from './inputs/change-password.input'
@@ -17,6 +18,7 @@ import { CreateUserInput } from './inputs/create-user.input'
 export class AccountService {
 	public constructor(
 		private readonly prismaService: PrismaService,
+		private readonly storageService: StorageService,
 		private readonly verificationService: VerificationService
 	) {}
 
@@ -31,8 +33,22 @@ export class AccountService {
 				notificationSettings: true
 			}
 		})
+		if (!user) {
+			throw new Error('Пользователь не найден')
+		}
 
-		return user
+		let avatar: string | null = user.avatar
+		if (user.avatar) {
+			avatar = await this.storageService.getSignedUrl(
+				user.avatar.replace(/^\//, '')
+			)
+		}
+		const userModel = {
+			...user,
+			avatar
+		}
+
+		return userModel
 	}
 
 	public async create(input: CreateUserInput) {
