@@ -20,14 +20,13 @@ export class ProfileResolver {
 	public constructor(private readonly profileService: ProfileService) {}
 
 	@Authorization()
-	@Mutation(() => String, { name: 'changeProfileAvatar' })
+	@Mutation(() => Boolean, { name: 'changeProfileAvatar' })
 	public async changeAvatar(
 		@Authorized() user: User,
 		@Args('avatar', { type: () => GraphQLUpload }, FileValidationPipe)
 		avatar: Upload
-	): Promise<string> {
-		const signedUrl = await this.profileService.changeAvatar(user, avatar)
-		return signedUrl
+	) {
+		return this.profileService.changeAvatar(user, avatar)
 	}
 
 	@Authorization()

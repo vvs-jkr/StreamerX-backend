@@ -2,16 +2,13 @@ import {
 	BadRequestException,
 	ConflictException,
 	Injectable,
-	InternalServerErrorException,
 	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { verify } from 'argon2'
-import { rejects } from 'assert'
 import type { Request } from 'express'
 import { TOTP } from 'otpauth'
-import { resolve } from 'path'
 
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 import { RedisService } from '@/src/core/redis/redis.service'
@@ -89,10 +86,7 @@ export class SessionService {
 			}
 		})
 
-		if (
-			!user
-			|| user.isDeactivated
-		) {
+		if (!user || user.isDeactivated) {
 			throw new NotFoundException('Пользователь не найден')
 		}
 
@@ -117,7 +111,7 @@ export class SessionService {
 				}
 			}
 
-			const totp = new TOTP({ 
+			const totp = new TOTP({
 				issuer: 'TeaStream',
 				label: `${user.email}`,
 				algorithm: 'SHA1',

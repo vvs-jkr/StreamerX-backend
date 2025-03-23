@@ -21,7 +21,7 @@ export function VerificationTemplate({ domain, token }: VerificationTemplateProp
 							Подтверждение вашей почты
 						</Heading>
 						<Text className='text-base text-black'>
-							Спасибо за регистрацию в Teastream! Чтобы подтвердить свой адрес электронной почты, пожалуйста, перейдите по следующей ссылке:
+							Спасибо за регистрацию в StreamerX! Чтобы подтвердить свой адрес электронной почты, пожалуйста, перейдите по следующей ссылке:
 						</Text>
 						<Link href={verificationLink} className='inline-flex justify-center items-center rounded-full text-sm font-medium text-white bg-[#18B9AE] px-5 py-2'>
 							Подтвердить почту

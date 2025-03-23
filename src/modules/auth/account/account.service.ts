@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common'
 import { hash, verify } from 'argon2'
 
-import { User } from '@/prisma/generated'
+import type { User } from '@/prisma/generated'
 import { PrismaService } from '@/src/core/prisma/prisma.service'
 
-import { StorageService } from './../../libs/storage/storage.service'
-import { VerificationService } from './../verification/verification.service'
+import { VerificationService } from '../verification/verification.service'
+
 import { ChangeEmailInput } from './inputs/change-email.input'
 import { ChangePasswordInput } from './inputs/change-password.input'
 import { CreateUserInput } from './inputs/create-user.input'
@@ -18,7 +18,6 @@ import { CreateUserInput } from './inputs/create-user.input'
 export class AccountService {
 	public constructor(
 		private readonly prismaService: PrismaService,
-		private readonly storageService: StorageService,
 		private readonly verificationService: VerificationService
 	) {}
 
@@ -33,44 +32,30 @@ export class AccountService {
 				notificationSettings: true
 			}
 		})
-		if (!user) {
-			throw new Error('Пользователь не найден')
-		}
 
-		let avatar: string | null = user.avatar
-		if (user.avatar) {
-			avatar = await this.storageService.getSignedUrl(
-				user.avatar.replace(/^\//, '')
-			)
-		}
-		const userModel = {
-			...user,
-			avatar
-		}
-
-		return userModel
+		return user
 	}
 
 	public async create(input: CreateUserInput) {
 		const { username, email, password } = input
 
-		const isUsernameExist = await this.prismaService.user.findUnique({
+		const isUsernameExists = await this.prismaService.user.findUnique({
 			where: {
 				username
 			}
 		})
 
-		if (isUsernameExist) {
+		if (isUsernameExists) {
 			throw new ConflictException('Это имя пользователя уже занято')
 		}
 
-		const isEmailExist = await this.prismaService.user.findUnique({
+		const isEmailExists = await this.prismaService.user.findUnique({
 			where: {
 				email
 			}
 		})
 
-		if (isEmailExist) {
+		if (isEmailExists) {
 			throw new ConflictException('Эта почта уже занята')
 		}
 
