@@ -6,12 +6,12 @@ export const BUTTONS = {
 			Markup.button.callback('📜 Мои подписки', 'follows'),
 			Markup.button.callback('👤 Просмотреть профиль', 'me')
 		],
-		[Markup.button.url('🌐 На сайт', 'https://vs-dev-streamerx.ru')]
+		[Markup.button.url('🌐 На сайт', 'https://devolala.online')]
 	]),
 	profile: Markup.inlineKeyboard([
 		Markup.button.url(
 			'⚙️ Настройки аккаунта',
-			'https://vs-dev-streamerx.ru/dashboard/settings'
+			'https://devolala.online/dashboard/settings'
 		)
 	])
 }
