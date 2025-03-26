@@ -168,8 +168,8 @@ model Notification {
 model NotificationSettings {
    id String @id @default(uuid())
 
-   siteNotifications     Boolean @default(true) @map("site_notifications")
-   telegramNotifications Boolean @default(true) @map("telegram_notifications")
+   siteNotifications     Boolean @default(false) @map("site_notifications")
+   telegramNotifications Boolean @default(false) @map("telegram_notifications")
 
    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
    userId String @unique @map("user_id")
