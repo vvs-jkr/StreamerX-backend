@@ -43,7 +43,7 @@ export class SessionResolver {
 	}
 
 	@Mutation(() => Boolean, { name: 'clearSessionCookie' })
-	public async clearSession(@Context() { req }: GqlContext) {
+	public async clearSessionCookie(@Context() { req }: GqlContext) {
 		return this.sessionService.clearSession(req)
 	}
 
